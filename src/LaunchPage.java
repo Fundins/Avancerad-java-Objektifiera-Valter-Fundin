@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.Optional;
+
 
 public class LaunchPage extends JFrame implements ActionListener {
 
@@ -15,7 +15,7 @@ public class LaunchPage extends JFrame implements ActionListener {
 
     LaunchPage(){
 
-        //Skapar frame, sedan lägger till panel från CreateWeek.
+        //Skapar frames och  buttons med actionListener.
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new FlowLayout());
@@ -37,25 +37,19 @@ public class LaunchPage extends JFrame implements ActionListener {
 
     }
 
-    public JPanel get_panel(){
-        //Här skapas en panel, där alla veckodagar kommer läggas till. Alla dagar är en en egen panel.
-        panel = new JPanel();
-        panel.setBackground(Color.DARK_GRAY);
-        panel.setSize(350,350);
-        //For loop för alla dagar i veckan, från datumet(måndag-sön.)
 
-
-        return panel;
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        //Lyssnar efter 'button
         if(e.getSource() ==button){
 
+            //JFileChooser för att hämta fil.
             JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setCurrentDirectory(new File("./src/filer"));
+            fileChooser.setCurrentDirectory(new File("./src/filer")); //Startar i src-direktivet.
 
+            //Tillåter bara filer med specifika ändelser.
             FileNameExtensionFilter filter = new FileNameExtensionFilter(
                     "Sheet-file","csv","xml","json"
             );
@@ -64,34 +58,39 @@ public class LaunchPage extends JFrame implements ActionListener {
 
             int response = fileChooser.showOpenDialog(null); //
 
-
+            //Kollar om 'response' var korrekt = om användaren tryckte på 'lägg till' med rätt fill.
             if (response == JFileChooser.APPROVE_OPTION){
+                //Sparar filen i FILE.
                 File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
+
                 String fileName = file.toString();
 
-                //Optional.ofNullable(fileName).filter(f->f.contains(".")).map(f-> f.substring(fileName.lastIndexOf(".") + 1));
-
+                //Kollar fil-ändelse
                 String end = fileName.substring(fileName.lastIndexOf("."));
-                System.out.println(end);
-                System.out.println(file);
 
                 if(end.equals(".csv")){
+                    //Ny instans, konstruktor behöver filnamnet.
                     CSVFile f = new CSVFile(fileName);
+                    //Öppnar ett nytt fönster med informationen från CSVFile.
                     NewWindow newWindow = new NewWindow(f.get_CSV());
 
                 }else if(end.equals(".json")){
+                    //Samma sak som ovan.
                     JSONFile f = new JSONFile(fileName);
                     NewWindow newWindow = new NewWindow(f.get_JSON());
                 }else if(end.equals(".xml")){
                    XMLFile x = new XMLFile(fileName);
                 }
                 else{
-                    System.out.println("Err");
                 }
 
             }
         }
+        //'Lyssnar' efter 'sortButton'
         if(e.getSource() == sortButton){
+            //Hämtar fil på samma sätt som 'button' ovanför.
+            //Skillnaden att den använder en annan funktion som sorterar datan istället för att bara visa den -
+
             JFileChooser fChooser = new JFileChooser();
             fChooser.setCurrentDirectory(new File("./src/filer"));
 
@@ -105,17 +104,14 @@ public class LaunchPage extends JFrame implements ActionListener {
 
 
             if (response == JFileChooser.APPROVE_OPTION){
+
                 File file = new File(fChooser.getSelectedFile().getAbsolutePath());
                 String fileName = file.toString();
-
-                //Optional.ofNullable(fileName).filter(f->f.contains(".")).map(f-> f.substring(fileName.lastIndexOf(".") + 1));
-
                 String end = fileName.substring(fileName.lastIndexOf("."));
-                System.out.println(end);
-                System.out.println(file);
 
                 if(end.equals(".csv")){
                     CSVFile f = new CSVFile(fileName);
+                    //Sorterar datan.
                     f.sort(2);
                     NewWindow newWindow = new NewWindow(f.get_CSV());
 

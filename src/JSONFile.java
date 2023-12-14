@@ -2,9 +2,7 @@
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
 import java.io.*;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -17,21 +15,27 @@ public class JSONFile {
 
 
  public JSONFile(String file){
+
+     //Fungerar som CSVFile fast använder sig av ett bibliotek, JSON SIMPLE.
+     //Json parser.
      JSONParser parser = new JSONParser();
      String[] array = null;
      content = new ArrayList<>();
      String line ="";
      try{
-         //Object obj = parser.parse(new FileReader("src/filer/sample.json"));
+            //Försöker att läsa filen, och lägga in den i en array.
          JSONArray a = (JSONArray) parser.parse(new FileReader(file));
 
-         //System.out.println(a);
+         //Lägger varje array i ett objekt.
          for (Object o : a){
-             JSONObject person = (JSONObject) o;
+             //Gör om OBJECT till ett JSONOBJECT.
+             JSONObject p = (JSONObject) o;
 
-             line =  (String) person.toJSONString();
+             //Gör om varje JSONOBJECT till en String.
+             line =  (String) p.toJSONString();
+             //Lägger till varje String i en array
              String[] test = line.split(",");
-
+             //Lägger till varje array till content.
              content.add(test);
 
          }
@@ -57,6 +61,7 @@ public class JSONFile {
 
     }
     public void sort(int index){
+      //Samma sortering som CSVFILE
         content.sort(new Comparator<String[]>() {
             @Override
             public int compare(String[] strings, String[] otherStrings) {
