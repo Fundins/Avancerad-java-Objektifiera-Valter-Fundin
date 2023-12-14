@@ -18,18 +18,19 @@ public class LaunchPage extends JFrame implements ActionListener {
         //Skapar frame, sedan lägger till panel från CreateWeek.
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new FlowLayout());
         frame.setSize(350,350);
-        //frame.setLayout(new FlowLayout(FlowLayout.CENTER,10,10));
-        //frame.add(get_panel());
+
 
         button = new JButton("Select File");
         button.addActionListener(this);
 
-        sortButton = new JButton("Sort");
+        sortButton = new JButton("Sort CVS File");
         sortButton.addActionListener(this);
-        sortButton.setVisible(false);
+
         frame.add(button);
-        frame.setLayout(new FlowLayout());
+        frame.add(sortButton);
+
         frame.pack();
         frame.setVisible(true);
 
@@ -74,8 +75,19 @@ public class LaunchPage extends JFrame implements ActionListener {
                 System.out.println(end);
                 System.out.println(file);
 
-                // if statement för fil-ändelse.
-                // Kör ny metod. + gör knapp synlig.
+                if(end.equals(".csv")){
+                    CSVFile f = new CSVFile(fileName);
+                    NewWindow newWindow = new NewWindow(f.get_CSV());
+
+                }else if(end.equals(".json")){
+                    JSONFile f = new JSONFile(fileName);
+                    NewWindow newWindow = new NewWindow(f.get_JSON());
+                }else if(end.equals(".xml")){
+                   XMLFile x = new XMLFile(fileName);
+                }
+                else{
+                    System.out.println("Err");
+                }
 
             }
         }

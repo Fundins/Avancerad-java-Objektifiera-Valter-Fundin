@@ -6,7 +6,7 @@ import org.w3c.dom.*;
 
 public class XMLFile {
 
-    public void readXMLNodes(String path){
+    public XMLFile(String path){
         try
         {
             File file = new File(path);
@@ -22,7 +22,9 @@ public class XMLFile {
         {
             System.out.println(e.getMessage());
         }
+
     }
+
     private static void printNodeList(NodeList nodeList)
     {
         for (int count = 0; count < nodeList.getLength(); count++)

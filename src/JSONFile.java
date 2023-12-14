@@ -16,36 +16,39 @@ public class JSONFile {
     private List<String[]> content;
 
 
+ public JSONFile(String file){
+     JSONParser parser = new JSONParser();
+     String[] array = null;
+     content = new ArrayList<>();
+     String line ="";
+     try{
+         //Object obj = parser.parse(new FileReader("src/filer/sample.json"));
+         JSONArray a = (JSONArray) parser.parse(new FileReader(file));
 
+         //System.out.println(a);
+         for (Object o : a){
+             JSONObject person = (JSONObject) o;
 
-    public void saveJSON(String file){
-        JSONParser parser = new JSONParser();
-        String[] array = null;
-        content = new ArrayList<>();
-        String line ="";
-        try{
-            //Object obj = parser.parse(new FileReader("src/filer/sample.json"));
-            JSONArray a = (JSONArray) parser.parse(new FileReader(file));
+             line =  (String) person.toJSONString();
+             String[] test = line.split(",");
 
-            //System.out.println(a);
-            for (Object o : a){
-                JSONObject person = (JSONObject) o;
+             content.add(test);
 
-                line =  (String) person.toJSONString();
-                String[] test = line.split(",");
-
-                 content.add(test);
-
-            }
+         }
 
 
 
 
 
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+     }catch (Exception e){
+         e.printStackTrace();
+     }
+ }
 
+
+
+    public List<String[]> get_JSON(){
+        return content;
     }
 
     public void print(){

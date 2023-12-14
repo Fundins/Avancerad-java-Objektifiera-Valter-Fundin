@@ -9,7 +9,9 @@ public class Main {
 
 
 
-    new LaunchPage();
+                new LaunchPage();
+
+
 
 
     }
