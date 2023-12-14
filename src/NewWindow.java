@@ -12,6 +12,9 @@ public class NewWindow {
     JScrollPane scrPane;
     JPanel panel,contetPanel, container;
     private List<String[]> content;
+
+    public NewWindow(){}
+
     NewWindow(List<String[]> _content){
         content = _content;
 

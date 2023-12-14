@@ -51,9 +51,10 @@ public class CSVFile {
                 return strings[index].compareTo(otherStrings[index]);
             }
         });
+        /*
         for(String[] sa : content){
             System.out.println(Arrays.toString(sa));
-        }
+        }*/
 
 
 

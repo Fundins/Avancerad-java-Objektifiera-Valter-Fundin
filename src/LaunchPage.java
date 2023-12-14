@@ -91,5 +91,48 @@ public class LaunchPage extends JFrame implements ActionListener {
 
             }
         }
+        if(e.getSource() == sortButton){
+            JFileChooser fChooser = new JFileChooser();
+            fChooser.setCurrentDirectory(new File("./src/filer"));
+
+            FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                    "CSV-File","csv","json"
+            );
+
+            fChooser.setFileFilter(filter);
+
+            int response = fChooser.showOpenDialog(null); //
+
+
+            if (response == JFileChooser.APPROVE_OPTION){
+                File file = new File(fChooser.getSelectedFile().getAbsolutePath());
+                String fileName = file.toString();
+
+                //Optional.ofNullable(fileName).filter(f->f.contains(".")).map(f-> f.substring(fileName.lastIndexOf(".") + 1));
+
+                String end = fileName.substring(fileName.lastIndexOf("."));
+                System.out.println(end);
+                System.out.println(file);
+
+                if(end.equals(".csv")){
+                    CSVFile f = new CSVFile(fileName);
+                    f.sort(2);
+                    NewWindow newWindow = new NewWindow(f.get_CSV());
+
+                }else if(end.equals(".json")){
+                    JSONFile f = new JSONFile(fileName);
+                    f.sort(2);
+                    NewWindow newWindow = new NewWindow(f.get_JSON());
+                }else if(end.equals(".xml")){
+                    XMLFile x = new XMLFile(fileName);
+                }
+                else{
+                    System.out.println("Err");
+                }
+
+            }
+
+
+        }
     }
 }
