@@ -15,6 +15,9 @@ public class NewWindow {
     private String[] firstRow;
     public NewWindow(){}
 
+    //Två konstruktorer, en om man sorterar, och en för att bara visa datan.
+    //Skillnaden är att om man sorterar så delas datan upp.
+    //Där första raden med rubriker för allakolumner sparas seperat, så att inte den sorteras också.
     public NewWindow(List<String[]> _content, String[] _firstRow){
 
         //Sätter 'content' som ska visas.
