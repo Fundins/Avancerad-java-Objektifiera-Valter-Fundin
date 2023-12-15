@@ -10,8 +10,9 @@ import java.util.List;
 
 public class JSONFile {
 
-    private List<String> JSON;
     private List<String[]> content;
+    private  List<String[]> sortedContent;
+    private String[] firstRow;
 
 
  public JSONFile(String file){
@@ -54,6 +55,12 @@ public class JSONFile {
     public List<String[]> get_JSON(){
         return content;
     }
+    public List<String[]> get_SortedJSON(){
+        return sortedContent;
+    }
+    public String[] get_firstRow(){
+        return  firstRow;
+    }
 
     public void print(){
 
@@ -61,7 +68,13 @@ public class JSONFile {
 
     }
     public void sort(int index){
-      //Samma sortering som CSVFILE
+      //Samma sortering som CSVFILE, Läs den.
+
+        sortedContent = new ArrayList<>();
+
+        firstRow = content.get(0);
+        content.remove(0);
+        sortedContent = content;
         content.sort(new Comparator<String[]>() {
             @Override
             public int compare(String[] strings, String[] otherStrings) {

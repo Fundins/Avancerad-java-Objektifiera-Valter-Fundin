@@ -12,12 +12,26 @@ public class NewWindow {
     JPanel panel;
     private List<String[]> content;
 
+    private String[] firstRow;
     public NewWindow(){}
+
+    public NewWindow(List<String[]> _content, String[] _firstRow){
+
+        //Sätter 'content' som ska visas.
+        content = _content;
+        firstRow = _firstRow;
+
+        open_window();
+    }
 
     public NewWindow(List<String[]> _content){
         //Sätter 'content' som ska visas.
         content = _content;
 
+        open_window();
+    }
+
+    public void open_window(){
         //Panel
         panel = new JPanel();
         panel.setLayout(new GridLayout(0,1,0,10));
@@ -35,12 +49,17 @@ public class NewWindow {
     }
 
 
-
-
     public void get_panel() {
+
+        //Hämtar varje panel som ska fyllas med texten.
+        //Lägger först till första raden med kolumner.
+        String firstRowString = Arrays.toString(firstRow);
+        //Ny instans av klass
+        panel.add(new CreateLabel(firstRowString).return_label());
 
         // Hämtar och förvandlar datan till en String, ArrayList(String[]) -> array(String[]) -> String
         //Loop varje array i ArrayList
+
         for (String[] str : content){
             // Tar hela String[] och gör om till en String.
             String join = Arrays.toString(str);

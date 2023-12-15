@@ -25,7 +25,7 @@ public class LaunchPage extends JFrame implements ActionListener {
         button = new JButton("Select File");
         button.addActionListener(this);
 
-        sortButton = new JButton("Sort CVS File");
+        sortButton = new JButton("Sort CVS/JSON File");
         sortButton.addActionListener(this);
 
         frame.add(button);
@@ -95,7 +95,7 @@ public class LaunchPage extends JFrame implements ActionListener {
             fChooser.setCurrentDirectory(new File("./src/filer"));
 
             FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                    "CSV-File","csv","json"
+                    "CSV/JSON","csv","json"
             );
 
             fChooser.setFileFilter(filter);
@@ -113,12 +113,12 @@ public class LaunchPage extends JFrame implements ActionListener {
                     CSVFile f = new CSVFile(fileName);
                     //Sorterar datan.
                     f.sort(2);
-                    NewWindow newWindow = new NewWindow(f.get_CSV());
+                    new NewWindow(f.get_SortedCSV(), f.get_firstRow());
 
                 }else if(end.equals(".json")){
                     JSONFile f = new JSONFile(fileName);
                     f.sort(2);
-                    NewWindow newWindow = new NewWindow(f.get_JSON());
+                    new NewWindow(f.get_SortedJSON(), f.get_firstRow());
                 }else if(end.equals(".xml")){
                     XMLFile x = new XMLFile(fileName);
                 }

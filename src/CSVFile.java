@@ -5,8 +5,10 @@ import java.util.*;
 
 public class CSVFile {
 
-    private ArrayList<String> rows;
+
     private List<String[]> content;
+    private  List<String[]> sortedContent;
+    private String[] firstRow;
 
     CSVFile(String file){
 
@@ -44,6 +46,14 @@ public class CSVFile {
     public List<String[]> get_CSV(){
         return content;
     }
+    public List<String[]> get_SortedCSV(){
+        return sortedContent;
+    }
+
+    public String[] get_firstRow(){
+        return  firstRow;
+    }
+
     public void print(){
         content.forEach(array -> System.out.println(Arrays.toString(array)));
     }
@@ -53,8 +63,15 @@ public class CSVFile {
         //Som sorteras med .sort.
         //Index är vilken 'row' i filen.
 
+        // Tar även bort den första radenm, där varje namn på kolumnen finns.
+        // Lägger till den raden i en egen array, som skickas med sen.
+        sortedContent = new ArrayList<>();
 
-        content.sort(new Comparator<String[]>() {
+        firstRow = content.get(0);
+        content.remove(0);
+        sortedContent = content;
+
+        sortedContent.sort(new Comparator<String[]>() {
             @Override
             public int compare(String[] strings, String[] otherStrings) {
                 return strings[index].compareTo(otherStrings[index]);
